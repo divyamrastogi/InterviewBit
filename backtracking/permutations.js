@@ -3,24 +3,35 @@
  * @param {array} A The array for which permutations need to be printed.
  */
 
-function swap(a, i, j) {
+var arr = [];
+
+function swap(charArray, i, j) {
   var temp;
-  var charArray = a.split('');
   temp = charArray[i];
   charArray[i] = charArray[j];
   charArray[j] = temp;
-  return charArray.join('');
+  return charArray;
 }
 
-function permute(str, l, r) {
-  if (l == r) console.log(str);
-  else {
-    for (var i = l; i <= r; i++) {
-      str = swap(str, l, i);
-      permute(str, l + 1, r);
-      str = swap(str, l, i);
+function permutation(str, l, r) {
+    if (l == r) {
+        arr.push(str.slice(0));
+    } else {
+        for (var i = l; i <= r; i++) {
+            str = swap(str, l, i);
+            permutation(str, l+1, r);
+            str = swap(str, l, i);
+        }    
     }
-  }
 }
 
-console.log(permute('123', 0, 2));
+var s = { 
+ //param A : array of integers
+ //return a array of array of integers
+    permute : function(A) {
+        permutation(A, 0, A.length -1);
+        return arr;
+    }
+};
+
+s.permute([1, 2, 3])
